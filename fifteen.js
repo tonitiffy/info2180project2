@@ -1,7 +1,24 @@
-var  alignPuzzlePieces = $$("#puzzlearea div");
 var emptySquare = {row:4,column:4};
-
-$("shufflebutton").observe("click", shuffleBoard);
+window.onload = function(){
+    var marL = 0;
+    var marT = 0;
+    $("shufflebutton").observe("click", shuffleBoard);
+    var  alignPuzzlePieces = $$("#puzzlearea div");
+    for (var i = 0; i < alignPuzzlePieces.length; i++) {
+        alignPuzzlePieces[i].addClassName("puzzlepiece");
+        alignPuzzlePieces[i].observe("mouseover",highlightTile);
+        alignPuzzlePieces[i].observe("click",movePiece);
+        if (marL === 400){
+            marL=0;
+            marT+=100;
+        }
+        alignPuzzlePieces[i].style.marginLeft = marL + "px";
+        alignPuzzlePieces[i].style.marginTop = marT + "px";
+        alignPuzzlePieces[i].style.backgroundPosition = (-marL)+"px "+(-marT)+"px";
+        alignPuzzlePieces[i].setSquareID(marT,marL);
+        marL+=100;
+    }
+};
 Element.prototype.setSquareID = function (marginT,marginL){
         var r2, c2;
         switch (marginT){
@@ -40,23 +57,6 @@ Element.prototype.setSquareID = function (marginT,marginL){
     this.setAttribute("row", r2);
     this.setAttribute("column", c2);
 };
-var marL = 0;
-var marT = 0;
-for (var i = 0; i < alignPuzzlePieces.length; i++) {
-    alignPuzzlePieces[i].addClassName("puzzlepiece");
-    alignPuzzlePieces[i].observe("mouseover",highlightTile);
-    alignPuzzlePieces[i].observe("click",movePiece);
-    if (marL === 400){
-        marL=0;
-        marT+=100;
-    }
-    alignPuzzlePieces[i].style.marginLeft = marL + "px";
-    alignPuzzlePieces[i].style.marginTop = marT + "px";
-    alignPuzzlePieces[i].style.backgroundPosition = (-marL)+"px "+(-marT)+"px";
-    alignPuzzlePieces[i].setSquareID(marT,marL);
-    marL+=100;
-}
-
 Element.prototype.isMovable = function(){
     var neighbour = [];
     neighbour[0]= getDOMElement(emptySquare.row,emptySquare.column-1);
