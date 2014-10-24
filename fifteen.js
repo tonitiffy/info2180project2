@@ -1,6 +1,7 @@
 var emptySquare = {row:4,column:4};
 
 window.onload = function(){
+    $("shufflebutton").observe("click", shuffleBoard);
     var alignPuzzlePieces = $$("#puzzlearea div");
     var marL = 0;
     var marT = 0;
@@ -18,7 +19,7 @@ window.onload = function(){
         setSquareID(alignPuzzlePieces[i],marT,marL);
         marL+=100;
     }
-    $("shufflebutton").observe("click", shuffleBoard);
+    //$("shufflebutton").observe("click", shuffleBoard);
 };
 function setSquareID(el,marginT,marginL){
         var r2, c2;
@@ -89,22 +90,22 @@ function move(el){
         if (neighbours[0]!==null&&el.getAttribute('id')===neighbours[0].getAttribute('id')){
             el.style.marginLeft = (marginL1+100) + "px";
             emptySquare.column-= 1;
-            el.setSquareID(marginT1,marginL1+100);    
+            setSquareID(el,marginT1,marginL1+100);    
         }            
         else if(neighbours[1]!==null&&el.getAttribute('id')===neighbours[1].getAttribute('id')){
             el.style.marginLeft = (marginL1-100) + "px";
             emptySquare.column+=1;
-            el.setSquareID(marginT1,marginL1-100);    
+            setSquareID(el,marginT1,marginL1-100);    
         }
         else if(neighbours[2]!==null&&el.getAttribute('id')===neighbours[2].getAttribute('id')){
             el.style.marginTop = (marginT1+100) + "px";
             emptySquare.row-= 1;
-            el.setSquareID(marginT1+100,marginL1);    
+            setSquareID(el,marginT1+100,marginL1);    
         }
         else if(neighbours[3]!==null&&el.getAttribute('id')===neighbours[3].getAttribute('id')){   
-            el.style.marginTop = marginT1-100 + "px";
+            el.style.marginTop = (marginT1-100) + "px";
             emptySquare.row+=1;
-            el.setSquareID(marginT1-100,marginL1);    
+            setSquareID(el,marginT1-100,marginL1);    
         }
     }
 }
@@ -126,7 +127,7 @@ function shuffleBoard(event){
         neighbourss[3]= getDOMElement(emptySquare.row+1,emptySquare.column);
         var sqreNum = Math.floor(Math.random() * 4);
         if (neighbourss[sqreNum] !== null){
-            neighbourss[sqreNum].move();
+            move(neighbourss[sqreNum]);
         }
     }
 }
