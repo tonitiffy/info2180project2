@@ -1,4 +1,5 @@
 var emptySquare = {row:4,column:4};
+var count = 0;
 
 window.onload = function(){
     $("shufflebutton").observe("click", shuffleBoard);
@@ -19,7 +20,6 @@ window.onload = function(){
         setSquareID(alignPuzzlePieces[i],marT,marL);
         marL+=100;
     }
-    //$("shufflebutton").observe("click", shuffleBoard);
 };
 function setSquareID(el,marginT,marginL){
         var r2, c2;
@@ -59,7 +59,22 @@ function setSquareID(el,marginT,marginL){
     el.setAttribute("row", r2);
     el.setAttribute("column", c2);
 }
-
+function inOrder(){
+    var alignPuzzlePiecess = $$("#puzzlearea div");
+    var rw = 1;
+    var clm = 1;
+    for(var x = 0;x< alignPuzzlePiecess.length;x++){
+        if (alignPuzzlePiecess[x].getAttribute('id') !== "square_"+rw+"_"+clm){
+            return false;
+        }
+        if (clm=== 4){
+        clm=0;
+        rw+=1;
+        }
+        clm+=1;        
+    }
+    return true;
+}
 
 function isMovable(el){
     var neighbour = [];
@@ -117,6 +132,10 @@ function highlightTile(event){
 }
 function movePiece(event){
     move(this);    
+    count++;
+    if(inOrder()){
+        alert("You Won! and it only took you "+count+" moves!");
+    }
 }
 function shuffleBoard(event){
     var neighbourss = [];
@@ -130,6 +149,7 @@ function shuffleBoard(event){
             move(neighbourss[sqreNum]);
         }
     }
+    count=0;
 }
 function getDOMElement(r,c){
     var elID = "square_"+r+"_"+c;
