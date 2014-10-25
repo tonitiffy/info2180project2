@@ -139,7 +139,7 @@ function movePiece(event){
 }
 function shuffleBoard(event){
     var neighbourss = [];
-    for(var n=0;n<100;n++){ 
+    for(var n=0;n<10;n++){ 
         neighbourss[0]= getDOMElement(emptySquare.row,emptySquare.column-1);
         neighbourss[1]= getDOMElement(emptySquare.row,emptySquare.column+1);
         neighbourss[2]= getDOMElement(emptySquare.row-1,emptySquare.column);
