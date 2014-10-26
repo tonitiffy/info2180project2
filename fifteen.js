@@ -82,7 +82,6 @@ function isMovable(el){
     neighbour[1]= getDOMElement(emptySquare.row,emptySquare.column+1);
     neighbour[2]= getDOMElement(emptySquare.row-1,emptySquare.column);
     neighbour[3]= getDOMElement(emptySquare.row+1,emptySquare.column);
-    //alert(neighbour[0]);
     for(var o=0;o<neighbour.length;o++){
         if (neighbour[o]!== null){
             if(el.getAttribute('id')===neighbour[o].getAttribute('id')){
@@ -135,6 +134,7 @@ function movePiece(event){
     count++;
     if(inOrder()){
         alert("You Won! and it only took you "+count+" moves!");
+        count = 0;
     }
 }
 function shuffleBoard(event){
