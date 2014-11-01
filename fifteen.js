@@ -21,6 +21,7 @@ window.onload = function(){
         marL+=100;
     }
 };
+
 function setSquareID(el,marginT,marginL){
         var r2, c2;
         switch (marginT){
@@ -59,6 +60,8 @@ function setSquareID(el,marginT,marginL){
     el.setAttribute("row", r2);
     el.setAttribute("column", c2);
 }
+//To check the order of the puzzle pieces
+//If the id's are in the correct order then the function returns true
 function inOrder(){
     var alignPuzzlePiecess = $$("#puzzlearea div");
     var rw = 1;
@@ -76,6 +79,8 @@ function inOrder(){
     return true;
 }
 
+//The function gets all the neighbouring elements of the empty square and 
+//compares it to the element that is trying to be moved
 function isMovable(el){
     var neighbour = [];
     neighbour[0]= getDOMElement(emptySquare.row,emptySquare.column-1);
@@ -91,6 +96,8 @@ function isMovable(el){
     }
     return false;
 }
+//If the element is moveable the function searches for which neighbour of the
+//empty square is trying to be moved
 function move(el){
     if (isMovable(el)){
         var neighbours = [];
